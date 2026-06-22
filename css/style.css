@@ -127,6 +127,34 @@ body{
     color:white;
 }
 
+
+.btn1{
+    display:inline-block;
+    padding:14px 35px;
+    background:#2563eb;
+    color:white;
+    text-decoration:none;
+    border-radius:40px;
+    transition:.3s;
+    margin-left: 20px;
+}
+
+.btn1:hover{
+    background:#1d4ed8;
+    transform:translateY(-4px);
+}
+
+.btn1-outline{
+    border:2px solid #2563eb;
+    color:#2563eb;
+}
+
+.btn1-outline:hover{
+    background:#2563eb;
+    color:white;
+}
+
+
 .social-icons{
     margin-top:25px;
 }
@@ -160,7 +188,7 @@ body{
     box-shadow:
     0 10px 30px rgba(37,99,235,.25);
 
-    animation:float 4s ease-in-out infinite;
+    /* animation:float 1s ease-in-out infinite; */
 }
 
 .image-circle img{
@@ -169,14 +197,16 @@ body{
     object-fit:cover;
 }
 
-@keyframes float{
+
+
+/* @keyframes float{
     0%,100%{
         transform:translateY(0);
     }
     50%{
         transform:translateY(-15px);
     }
-}
+} */
 
 /* ===== PREVIEW SECTIONS ===== */
 
@@ -739,4 +769,4 @@ body{
     transparent 30%),
 
     #f8fafc;
-}
+    } 

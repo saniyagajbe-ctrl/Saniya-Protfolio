@@ -19,7 +19,7 @@ function type() {
 
   if (!typingText) return;
 
-  let currentWord = words[wordIndex];
+  const currentWord = words[wordIndex];
 
   if (!deleting) {
 
@@ -43,11 +43,7 @@ function type() {
 
     if (charIndex === 0) {
       deleting = false;
-      wordIndex++;
-
-      if (wordIndex >= words.length) {
-        wordIndex = 0;
-      }
+      wordIndex = (wordIndex + 1) % words.length;
     }
   }
 
@@ -63,17 +59,14 @@ type();
 
 function revealElements() {
 
-  const reveals = document.querySelectorAll(
-    ".reveal, .skill-card, .project-card, .glass-card"
+  const elements = document.querySelectorAll(
+    ".reveal, .skill-card, .project-card, .glass-card, .edu-card"
   );
 
-  reveals.forEach((element) => {
+  elements.forEach((element) => {
 
     const windowHeight = window.innerHeight;
-
-    const elementTop =
-      element.getBoundingClientRect().top;
-
+    const elementTop = element.getBoundingClientRect().top;
     const revealPoint = 120;
 
     if (elementTop < windowHeight - revealPoint) {
@@ -81,37 +74,38 @@ function revealElements() {
     }
 
   });
+
 }
 
 window.addEventListener("scroll", revealElements);
-revealElements();
+window.addEventListener("load", revealElements);
 
 
 // =========================
-// Navbar Background Change
+// Navbar Scroll Effect
 // =========================
+
+const navbar = document.querySelector(".navbar");
 
 window.addEventListener("scroll", () => {
-
-  const navbar =
-    document.querySelector(".navbar");
 
   if (!navbar) return;
 
   if (window.scrollY > 50) {
 
     navbar.style.background =
-      "rgba(5,8,22,0.95)";
+      "rgba(255,255,255,0.98)";
 
     navbar.style.boxShadow =
-      "0 5px 20px rgba(168,85,247,0.3)";
+      "0 5px 20px rgba(0,0,0,0.08)";
 
   } else {
 
     navbar.style.background =
-      "rgba(5,8,22,0.6)";
+      "rgba(255,255,255,0.95)";
 
     navbar.style.boxShadow = "none";
+
   }
 
 });
@@ -121,13 +115,10 @@ window.addEventListener("scroll", () => {
 // Mobile Menu Toggle
 // =========================
 
-const menuBtn =
-  document.querySelector(".menu-btn");
+const menuBtn = document.querySelector(".menu-btn");
+const navLinks = document.querySelector(".nav-links");
 
-const navLinks =
-  document.querySelector(".nav-links");
-
-if (menuBtn) {
+if (menuBtn && navLinks) {
 
   menuBtn.addEventListener("click", () => {
 
@@ -139,18 +130,18 @@ if (menuBtn) {
 
 
 // =========================
-// Active Navbar Link
+// Active Navigation Link
 // =========================
 
-const links =
-  document.querySelectorAll(".nav-links a");
+const links = document.querySelectorAll(".nav-links a");
 
 links.forEach(link => {
 
   link.addEventListener("click", () => {
 
-    links.forEach(item =>
-      item.classList.remove("active-link"));
+    links.forEach(item => {
+      item.classList.remove("active-link");
+    });
 
     link.classList.add("active-link");
 
@@ -160,30 +151,7 @@ links.forEach(link => {
 
 
 // =========================
-// Floating Profile Image
-// =========================
-
-const profileImage =
-  document.querySelector(".hero-image img");
-
-if (profileImage) {
-
-  let angle = 0;
-
-  setInterval(() => {
-
-    angle += 0.05;
-
-    profileImage.style.transform =
-      `translateY(${Math.sin(angle) * 12}px)`;
-
-  }, 20);
-
-}
-
-
-// =========================
-// Skill Card Hover Effect
+// Skill Card Hover Animation
 // =========================
 
 const skillCards =
@@ -194,7 +162,7 @@ skillCards.forEach(card => {
   card.addEventListener("mouseenter", () => {
 
     card.style.transform =
-      "translateY(-10px) scale(1.05)";
+      "translateY(-8px) scale(1.03)";
 
   });
 
@@ -215,23 +183,35 @@ skillCards.forEach(card => {
 document.querySelectorAll('a[href^="#"]')
 .forEach(anchor => {
 
-  anchor.addEventListener("click", function(e) {
-
-    e.preventDefault();
+  anchor.addEventListener("click", function (e) {
 
     const target =
       document.querySelector(
         this.getAttribute("href")
       );
 
-    if(target){
+    if (target) {
+
+      e.preventDefault();
 
       target.scrollIntoView({
-        behavior: "smooth"
+        behavior: "smooth",
+        block: "start"
       });
 
     }
 
   });
+
+});
+
+
+// =========================
+// Page Load Fade Effect
+// =========================
+
+window.addEventListener("load", () => {
+
+  document.body.classList.add("loaded");
 
 });
